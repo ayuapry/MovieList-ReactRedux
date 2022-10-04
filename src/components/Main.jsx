@@ -4,7 +4,7 @@ import requests from '../Requests'
 import {AiOutlinePlayCircle} from 'react-icons/ai'
 
 export const Main = () => {
-const [movies, setMovies] = useState([])
+const [movies, setMovies] = useState([]);
 
 const movie = movies[Math.floor(Math.random() * movies.length)]
 
