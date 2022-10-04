@@ -1,10 +1,11 @@
 import React from 'react'
 import { Search } from './Search'
+import { Link } from 'react-router-dom'
 
 export const Navbar = () => {
   return (
     <div className='flex items-center justify-between p-4 z-[100] w-full absolute'>
-        <h1 className='text-red-600 text-4xl font-bold cursor-pointer ml-3'>MovieList</h1>
+        <Link to='/' className='text-red-600 text-4xl font-bold cursor-pointer ml-3'>MovieList</Link>
         <div>
           <Search />
         </div>

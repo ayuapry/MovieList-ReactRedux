@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { Navbar } from '../components/Navbar'
+import {Footer} from '../components/Footer'
 import { useParams } from 'react-router-dom';
 import {AiOutlinePlayCircle, AiFillStar} from 'react-icons/ai'
 
@@ -48,6 +49,7 @@ export const Details = ({item}) => {
                     </button>
                 </div>
             </div>
+            <Footer />
         </div>
         </div>
   )
