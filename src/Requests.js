@@ -6,7 +6,7 @@ const requests = {
     requestTopRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}&language=en-US&page=1`,
     requestUpcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=1`,
     requestAdventure: `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=Adventure&page=1`,
-    requestAnimation: `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=Animation&page=1`,
+    requestAnimation: `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=Horor&page=1`,
     requestFamily: `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=Family&page=1`
 
 }
