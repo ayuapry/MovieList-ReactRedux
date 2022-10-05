@@ -10,10 +10,10 @@ export const Home = () => {
         <Main />
         <Row rowID='1' title='Popular Movie' fetchURL={requests.requestPopular} />
         <Row rowID='2' title='Top Rated Movie' fetchURL={requests.requestTopRated} />
-        <Row rowID='6' title='Animation Movie' fetchURL={requests.requestAnimation} />
         <Row rowID='3' title='Up Coming Movie' fetchURL={requests.requestUpcoming} />
         <Row rowID='4' title='Adventure Movie' fetchURL={requests.requestAdventure} />
         <Row rowID='5' title='Family Movie' fetchURL={requests.requestFamily} />
+        <Row rowID='6' title='Horor Movie' fetchURL={requests.requestHoror} />
         <Footer />
 
     </div>
