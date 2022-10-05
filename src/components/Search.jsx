@@ -1,13 +1,31 @@
-import React from 'react'
-import {AiOutlineSearch} from 'react-icons/ai'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 
 export const Search = () => {
+  const {name} = useParams();
+  const [search, setSearch]= useState('');
+
+  const searchMovie = async (e) =>{
+    try {
+      const res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=244fa9aef597e28aa246abfdef2d39f6&query=${name}`);
+      // console.log(res.data.results);
+      setSearch(res.data.results);
+      } catch (error) {
+      console.log(error);
+    }
+  };
+
+ 
+ useEffect(() => {
+  searchMovie();
+}, []);
+console.log(search)
+
   return (
     <div>
-        <div className='bg-transparents border border-red-600 rounded-full flex items-center px-2 w-[200px] sm:w-[200px] lg:w-[300px]'>
-        <input className='bg-transparent p-2 w-full focus:outline-none text-white' type="text"  placeholder='What do you want to watch?' />
-        <AiOutlineSearch  color='white' size={20} />
-      </div>
+      <h1 className='text-white'>search</h1>
     </div>
   )
 }

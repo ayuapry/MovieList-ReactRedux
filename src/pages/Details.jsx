@@ -42,7 +42,7 @@ export const Details = ({item}) => {
                 </div>
                 <p className='text-gray-400 text-sm my-4'>Released: {movies.release_date}</p>
                 <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[50%] text-gray-200'>{movies.overview}</p>
-                <p className='flex mt-3 items-center '><AiFillStar color='yellow' className='mr-2'/>{movies.vote_average}/10</p>
+                <p className='flex mt-3 items-center '><AiFillStar color='yellow' className='mr-2'/>{parseFloat(movies.vote_average).toFixed(1)}/10</p>
                 <div className='my-4'>
                     <button className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]'>
                     <AiOutlinePlayCircle size={25} className='mr-2' />Watch Trailer 

@@ -1,14 +1,30 @@
-import React from 'react'
-import { Search } from './Search'
-import { Link } from 'react-router-dom'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom'
+import {AiOutlineSearch} from 'react-icons/ai'
 
 export const Navbar = () => {
+  const [search, setSearch]= useState('');
+  const navigate = useNavigate();
+
+  const submit  = () => {
+    navigate(`/Search/${search}`)
+  }
+
+
+
   return (
     <div className='flex items-center justify-between p-4 z-[100] w-full absolute'>
         <Link to='/' className='text-red-600 text-4xl font-bold cursor-pointer ml-3'>MovieList</Link>
-        <div>
-          <Search />
-        </div>
+        <form className='bg-transparents border border-red-600 rounded-full flex items-center px-2 w-[200px] sm:w-[200px] lg:w-[300px] ' autoComplete="off">
+             <input 
+              type="text"
+              placeholder="Movie Search"
+              className='bg-transparent p-2 w-full focus:outline-none' 
+              name="search"
+              onChange={(e) => setSearch(e.target.value)}></input>
+              <AiOutlineSearch onClick={submit} color='white' size={20} />
+        </form>
         <div>
             <button className='text-white hover:bg-red-400 px-8 py-2 mr-2 bg-transparent rounded-full border-2 border-red-500'>Login</button>
             <button className='bg-red-600 hover:bg-red-400 px-8 py-2 rounded-full text-white'>Register</button>

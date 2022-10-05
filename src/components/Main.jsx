@@ -8,11 +8,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
 
+
 export const Main = () => {
 const [movies, setMovies] = useState([]);
 
-//hero
-const movie = movies[Math.floor(Math.random() * movies.length)]
+
+const movie  = movies[Math.floor(Math.random() * movies.length)]
 const movie1 = movies[Math.floor(Math.random() * movies.length)]
 const movie2 = movies[Math.floor(Math.random() * movies.length)]
 
@@ -32,10 +33,10 @@ const truncateString = (str, num) => {
   };
 
   return (
-    <div className='w-full h-[600px] text-white '>
+    <div className='w-full h-[750px] text-white '>
         <div className='w-full h-full'>
-            <div className='absolute w-full h-[600px] bg-gradient-to-r from-black '></div>
-            <Swiper pagination={{ dynamicBullets: true, }} modules={[Pagination]} className="mySwiper w-full h-[600px]">
+            <div className='absolute w-full h-full bg-gradient-to-r from-black '></div>
+            <Swiper pagination={{ dynamicBullets: true, }} modules={[Pagination]} className="mySwiper w-full h-[750px]">
                 <SwiperSlide>
                   <img className='w-full h-full object-cover' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt={movie?.title} />
                   <div className='absolute w-full top-[20%] p-4 md:p-8 '>
