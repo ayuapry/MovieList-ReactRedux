@@ -10,8 +10,7 @@ import { Pagination } from "swiper";
 
 export const Main = () => {
 const [movies, setMovies] = useState([]);
-
-const movie = movies[Math.floor(Math.random() * movies.length)]
+const movie  = movies[Math.floor(Math.random() * movies.length)]
 const movie1 = movies[Math.floor(Math.random() * movies.length)]
 const movie2 = movies[Math.floor(Math.random() * movies.length)]
 
@@ -41,9 +40,10 @@ const truncateString = (str, num) => {
                     <p className='text-white text-sm my-4'>Released: {movie?.release_date}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-white font-semibold'> {truncateString(movie?.overview,200)}</p>
                     <div className='my-4'>
-                        <button className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]'>
-                        <AiOutlinePlayCircle size={25} className='mr-2' />Watch Trailer 
-                        </button>
+                      <a className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]' 
+                      href={`https://www.youtube.com/results?search_query=${movies.original_title}`}>
+                      <AiOutlinePlayCircle size={25} className='mr-2' href={`https://www.youtube.com/results?search_query=${movies.original_title}`} />Watch Trailer 
+                      </a>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -54,9 +54,10 @@ const truncateString = (str, num) => {
                     <p className='text-white text-sm my-4'>Released: {movie1?.release_date}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-white font-semibold'> {truncateString(movie1?.overview,200)}</p>
                     <div className='my-4'>
-                        <button className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]'>
-                        <AiOutlinePlayCircle size={25} className='mr-2' />Watch Trailer 
-                        </button>
+                      <a className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]' 
+                      href={`https://www.youtube.com/results?search_query=${movies.original_title}`}>
+                      <AiOutlinePlayCircle size={25} className='mr-2' href={`https://www.youtube.com/results?search_query=${movies.original_title}`} />Watch Trailer 
+                      </a>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -67,9 +68,10 @@ const truncateString = (str, num) => {
                     <p className='text-white  text-sm my-4'>Released: {movie2?.release_date}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-white font-semibold'> {truncateString(movie2?.overview,200)}</p>
                     <div className='my-4'>
-                        <button className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]'>
-                        <AiOutlinePlayCircle size={25} className='mr-2' />Watch Trailer 
-                        </button>
+                      <a className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]' 
+                      href={`https://www.youtube.com/results?search_query=${movies.original_title}`}>
+                      <AiOutlinePlayCircle size={25} className='mr-2' href={`https://www.youtube.com/results?search_query=${movies.original_title}`} />Watch Trailer 
+                      </a>
                     </div>
                   </div>
                 </SwiperSlide>  
