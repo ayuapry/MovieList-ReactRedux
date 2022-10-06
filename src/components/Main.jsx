@@ -40,7 +40,7 @@ const truncateString = (str, num) => {
                   <img className='w-full h-full object-cover' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt={movie?.title} />
                   <div className='absolute w-full top-[20%] p-4 md:p-8 '>
                     <h1 className='text-3xl md:text-5xl font-bold'>{movie?.title}</h1>
-                    <p className='text-gray-400 text-sm my-4'>Released: {movie?.release_date}</p>
+                    <p className='text-white text-sm my-4'>Released: {movie?.release_date}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-white font-semibold'> {truncateString(movie?.overview,200)}</p>
                     <div className='my-4'>
                         <button className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]'>
@@ -53,7 +53,7 @@ const truncateString = (str, num) => {
                   <img className='w-full h-full object-cover ' src={`https://image.tmdb.org/t/p/original/${movie1?.backdrop_path}`} alt={movie1?.title} />
                   <div className='absolute w-full top-[20%] p-4 md:p-8 '>
                     <h1 className='text-3xl md:text-5xl font-bold'>{movie1?.title}</h1>
-                    <p className='text-gray-400 text-sm my-4'>Released: {movie1?.release_date}</p>
+                    <p className='text-white text-sm my-4'>Released: {movie1?.release_date}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-white font-semibold'> {truncateString(movie1?.overview,200)}</p>
                     <div className='my-4'>
                         <button className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]'>
@@ -66,7 +66,7 @@ const truncateString = (str, num) => {
                   <img className='w-full h-full object-cover ' src={`https://image.tmdb.org/t/p/original/${movie2?.backdrop_path}`} alt={movie2?.title} />
                   <div className='absolute w-full top-[20%] p-4 md:p-8 '>
                     <h1 className='text-3xl md:text-5xl font-bold'>{movie2?.title}</h1>
-                    <p className='text-gray-400 text-sm my-4'>Released: {movie2?.release_date}</p>
+                    <p className='text-white  text-sm my-4'>Released: {movie2?.release_date}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-white font-semibold'> {truncateString(movie2?.overview,200)}</p>
                     <div className='my-4'>
                         <button className=' bg-red-600 rounded-full text-white hover:bg-red-400 hidden md:flex pl-5 py-3 mr-4 w-[170px]'>

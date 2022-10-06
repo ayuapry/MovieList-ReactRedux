@@ -18,8 +18,8 @@ export const Navbar = () => {
         <form className='bg-transparents border border-red-600 rounded-full flex items-center px-2 w-[200px] sm:w-[200px] lg:w-[300px]' autoComplete="off">
              <input 
               type="text"
-              placeholder="What do ypu want to watch?"
-              className='bg-transparent p-2 w-full focus:outline-none' 
+              placeholder="What do you want to watch?"
+              className='bg-transparent p-2 w-full focus:outline-none text-white' 
               name="search"
               onChange={(e) => setSearch(e.target.value)}></input>
               <AiOutlineSearch onClick={submit} color='white' size={20} className='cursor-pointer' />
