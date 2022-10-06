@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {AiOutlineSearch} from 'react-icons/ai'
 
@@ -10,12 +10,10 @@ export const Navbar = () => {
     navigate(`/Search/${search}`)
   }
 
-
-
   return (
-    <div className='flex items-center justify-between p-4 z-[100] w-full absolute'>
-        <Link to='/' className='text-red-600 text-4xl font-bold cursor-pointer ml-3'>MovieList</Link>
-        <form className='bg-transparents border border-red-600 rounded-full flex items-center px-2 w-[200px] sm:w-[200px] lg:w-[300px]' autoComplete="off">
+    <div className='flex items-center justify-between p-4 z-[100] w-full absolute text-white'>
+        <Link to='/' className='text-red-600 text-6xl font-bold cursor-pointer ml-3'>MovieList</Link>
+        <form className='text-white bg-transparents border border-red-600 rounded-full flex items-center px-2 w-[200px] sm:w-[200px] lg:w-[300px] ' autoComplete="off">
              <input 
               type="text"
               placeholder="What do you want to watch?"

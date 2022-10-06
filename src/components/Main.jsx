@@ -11,18 +11,16 @@ import { Pagination } from "swiper";
 export const Main = () => {
 const [movies, setMovies] = useState([]);
 
-//ba
 const movie = movies[Math.floor(Math.random() * movies.length)]
 const movie1 = movies[Math.floor(Math.random() * movies.length)]
 const movie2 = movies[Math.floor(Math.random() * movies.length)]
 
 useEffect (() => {
-    axios.get(requests.requestPopular).then((response) => {
+    axios.get(requests.requestUpcoming).then((response) => {
         setMovies(response.data.results)
     })
 }, [])
-// console.log(movie)
-
+ 
 const truncateString = (str, num) => {
     if (str?.length > num) {
       return str.slice(0, num) + '...';

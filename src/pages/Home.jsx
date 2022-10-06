@@ -3,12 +3,22 @@ import { Main } from '../components/Main'
 import { Row } from '../components/Row'
 import { Footer } from '../components/Footer'
 import requests from '../Requests'
+import {AiOutlineArrowRight} from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 export const Home = () => {
   return (
     <div>
         <Main />
-        <Row rowID='1' title='Popular Movie' fetchURL={requests.requestPopular} />
+        <div className='flex items-center justify-between pt-5'>
+          <p className='text-black font-bold md:text-xl p-4'>Popular Movie</p>
+          <div>
+            <Link to='/movies' className='bg-transparent hidden md:flex pl-5 py-3 mr-4 w-[170px] text-red-500 font-semibold'>
+              See All Movies <AiOutlineArrowRight size={25} className='mr-2' />
+            </Link>
+          </div>
+        </div>
+        <Row rowID='1' title='' fetchURL={requests.requestPopular} />
         <Row rowID='2' title='Top Rated Movie' fetchURL={requests.requestTopRated} />
         <Row rowID='3' title='Up Coming Movie' fetchURL={requests.requestUpcoming} />
         <Row rowID='4' title='Adventure Movie' fetchURL={requests.requestAdventure} />
