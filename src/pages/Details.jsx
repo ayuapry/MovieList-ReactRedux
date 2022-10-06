@@ -4,9 +4,12 @@ import { Navbar } from '../components/Navbar'
 import {Footer} from '../components/Footer'
 import { useParams } from 'react-router-dom';
 import {AiOutlinePlayCircle, AiFillStar} from 'react-icons/ai'
+import { Credits } from '../components/Credits';
 
-export const Details = ({item}) => {
+export const Details = () => {
     const [movies, setMovies] = useState([]);
+    // const navigate = useNavigate();
+
     const {id} = useParams();
     
     const getData = async () => {
@@ -17,18 +20,20 @@ export const Details = ({item}) => {
             console.log(error);
         }
     };
-    console.log(movies)
+    // console.log(movies)
 
     useEffect(() => {
         getData();
-    }, []);
+    });
+
+    
 
   return (
     <div>
         <Navbar />
-        <div className='w-full h-[700px] text-white'>        
+        <div className='w-full h-[750px] text-white'>        
             <div className='w-full h-full'>
-            <div className='absolute w-full h-[700px] bg-gradient-to-r from-black '></div>
+            <div className='absolute w-full h-[750px] bg-gradient-to-r from-black '></div>
                 <img className='w-full h-full object-cover' src={`https://image.tmdb.org/t/p/original/${movies.backdrop_path}`} alt={movies.title}/>
             </div>
             <div className='absolute w-full top-[20%] p-4 md:p-8 '>
@@ -49,6 +54,16 @@ export const Details = ({item}) => {
                     </button>
                 </div>
             </div>
+            {/* <div>
+                <div>
+                {credits && credits.map((item,index) => (
+                    // <div className='w-[200px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-0 mt-20 ml-5'>
+                    // <Movie key={index} item={item} />
+                    <li>{item?.original_name}</li>
+                    ))}
+                </div>
+            </div> */}
+            <Credits />
             <Footer />
         </div>
         </div>

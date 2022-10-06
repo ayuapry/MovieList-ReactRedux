@@ -9,14 +9,12 @@ export const AllMovies = () => {
     const [movies, setMovies] = useState([]);
     const getData = async () => {
         try{
-            const item = await axios.get("https://api.themoviedb.org/3/movie/upcoming?api_key=244fa9aef597e28aa246abfdef2d39f6&language=en-US&page=3")
+            const item = await axios.get("https://api.themoviedb.org/3/trending/all/day?api_key=244fa9aef597e28aa246abfdef2d39f6")
             setMovies(item.data.results);
         }catch (error) {
             console.log(error);
         }
     };
-    
-
     useEffect(() => {
         getData();
     }, []);
