@@ -8,10 +8,7 @@ import { Credits } from '../components/Credits';
 
 export const Details = () => {
     const [movies, setMovies] = useState([]);
-    // const navigate = useNavigate();
-
     const {id} = useParams();
-    
     const getData = async () => {
         try{
             const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=244fa9aef597e28aa246abfdef2d39f6`)
@@ -20,13 +17,9 @@ export const Details = () => {
             console.log(error);
         }
     };
-    // console.log(movies)
-
     useEffect(() => {
         getData();
     });
-
-    console.log(movies)
 
   return (
     <div>

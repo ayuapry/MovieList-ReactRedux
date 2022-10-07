@@ -29,7 +29,7 @@ export const Search = () => {
   return (
     <div>
       <Navbar />
-      <Hero />
+      <Hero title={name} />
       <div>
        {movies.map((item,index) => (
         <div className='w-[200px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-0 mt-20 ml-5'>

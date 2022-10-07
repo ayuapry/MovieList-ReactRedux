@@ -20,7 +20,7 @@ export const Credits = () => {
 
   return (
     <div>
-        <h1 className='text-black ml-3 p-5 font-bold text-3xl '>Movie Cast and Crew Info</h1>
+        <h1 className='text-black ml-3 p-5 font-bold text-3xl'>Movie Cast and Crew Info</h1>
         <div>
             {credits.cast && credits.cast.slice(0, 5).map((item,index) => (
                 <div key={index} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-3 ml-5'> 

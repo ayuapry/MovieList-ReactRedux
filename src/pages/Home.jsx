@@ -12,8 +12,9 @@ export const Home = () => {
         <Main />
         <div className='flex items-center justify-between pt-5'>
           <p className='text-black font-bold md:text-xl p-4'>Popular Movie</p>
-          <div>
-            <Link to='/movies' className='bg-transparent hidden md:flex pl-5 py-3 mr-4 w-[170px] text-red-500 font-semibold'>
+          <div className='flex'>
+            <Link to='/Genres' className='bg-red-500 hover:bg-red-400 rounded-full hidden md:flex pl-5 py-3 mr-4 w-[180px] text-white font-semibold'>Browse By Category</Link>
+            <Link to='/movies' className=' bg-red-500 hover:bg-red-400 rounded-full hidden md:flex pl-5 py-3 mr-4 w-[170px] text-white font-semibold'>
               See All Movies <AiOutlineArrowRight size={25} className='mr-2' />
             </Link>
           </div>

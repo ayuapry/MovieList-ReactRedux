@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper";
 
 export const Main = () => {
+  
 const [movies, setMovies] = useState([]);
 const movie  = movies[Math.floor(Math.random() * movies.length)]
 const movie1 = movies[Math.floor(Math.random() * movies.length)]
