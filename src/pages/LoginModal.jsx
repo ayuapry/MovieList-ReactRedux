@@ -13,7 +13,7 @@ export const LoginModal = ({open, onClose}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-        const res = await axios.post("http://notflixtv.herokuapp.com/api/v1/users/login",
+        const res = await axios.post("https://notflixtv.herokuapp.com/api/v1/users/login",
           {
             email: email,
             password: password,
