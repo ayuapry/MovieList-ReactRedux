@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from 'axios';
 
-export const RegisterModal = ({visible, onClose}) => {
+export const RegisterModal = ({visible, tutup, tokens, setTokens}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ export const RegisterModal = ({visible, onClose}) => {
 
     const handleOnClose = (e) => {
         if(e.target.id === 'container') 
-        onClose()
+        tutup()
     }
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -27,12 +27,19 @@ export const RegisterModal = ({visible, onClose}) => {
             }
           );
           console.log(res.data.data)
-          localStorage.setItem("users", JSON.stringify(res.data.data.token));
+          localStorage.setItem("users", JSON.stringify(res.data.data));
+          const users = JSON.parse(localStorage.getItem('users'))
+          if(users.token){
+            setTokens(true)
+          }else{
+            setTokens(false)
+          }
           setFirstName("");
           setLastName("");
           setPassword("");
           setEmail("");
           setPasswordconf("");
+          tutup()
       }catch (error) {
           console.log(error);
       }
@@ -44,7 +51,7 @@ export const RegisterModal = ({visible, onClose}) => {
         <div className="bg-white p-2 rounded w-[500px]">
             <div className='flex items-center justify-between mb-7 '>
                 <p className='font-semibold '>Create Account</p>
-                <button onClick={onClose}><AiOutlineClose /></button>
+                <button onClick={tutup}><AiOutlineClose /></button>
             </div>
         <form onSubmit={handleSubmit}>
         <div className="flex flex-col">

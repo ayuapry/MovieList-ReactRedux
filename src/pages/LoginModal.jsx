@@ -2,14 +2,9 @@ import React, { useState } from 'react'
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from 'axios';
 
-export const LoginModal = ({open, onClose}) => {
+export const LoginModal = ({open, onClose, token, setToken}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleClose = (e) => {
-    if(e.target.id === 'container') 
-    onClose()
-}
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
@@ -20,17 +15,23 @@ export const LoginModal = ({open, onClose}) => {
           }
         );
         console.log(res.data.data)
-        localStorage.setItem("user", JSON.stringify(res.data.data.token));
+        localStorage.setItem("user", JSON.stringify(res.data.data));
+        const user = JSON.parse(localStorage.getItem('user'))
+        if(user.token){
+          setToken(true)
+        }else{
+          setToken(false)
+        }
         setPassword("");
         setEmail("");
+        onClose();
     }catch (error) {
         console.log(error);
     }
   }
-
 if(!open) return null
   return (
-    <div id='container' onClick={handleClose} className='fixed inset-0 bg-black bg-opacity-70 backdropbackdrop-blur-xl flex justify-center items-center text-black'>
+    <div id='container' className='fixed inset-0 bg-black bg-opacity-70 backdropbackdrop-blur-xl flex justify-center items-center text-black'>
     <div className="bg-white p-2 rounded w-[500px]">
         <div className='flex items-center justify-between mb-7 '>
             <p className='font-semibold '>Log In to Your Account</p>
