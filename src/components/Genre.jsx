@@ -6,7 +6,6 @@ export const Genre = () => {
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [active, setActive] = useState(0);
-  
   useEffect(() => {
     fetchData();
   }, []);
