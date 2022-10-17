@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from 'axios';
 
-export const RegisterModal = ({visible, tutup, tokens, setTokens}) => {
+export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,13 +26,14 @@ export const RegisterModal = ({visible, tutup, tokens, setTokens}) => {
               password_confirmation: passwordconf,
             }
           );
-          console.log(res.data.data)
-          localStorage.setItem("users", JSON.stringify(res.data.data));
-          const users = JSON.parse(localStorage.getItem('users'))
-          if(users.token){
-            setTokens(true)
+          // console.log(res.data.data)
+          localStorage.setItem("user", JSON.stringify(res.data.data));
+          
+          const user = JSON.parse(localStorage.getItem('user'))
+          if(user.token){
+            setToken(true)
           }else{
-            setTokens(false)
+            setToken(false)
           }
           setFirstName("");
           setLastName("");
@@ -40,6 +41,10 @@ export const RegisterModal = ({visible, tutup, tokens, setTokens}) => {
           setEmail("");
           setPasswordconf("");
           tutup()
+
+          setTimeout(function () {
+            window.location.reload(1);
+          }, 1500);
       }catch (error) {
           console.log(error);
       }
@@ -57,30 +62,35 @@ export const RegisterModal = ({visible, tutup, tokens, setTokens}) => {
         <div className="flex flex-col">
           <input
             type="text"
+            name='first_name'
             onChange={(e) => setFirstName(e.target.value)}
             className="border border-gray-400 p-2 rounded-full mb-5"
             placeholder="First Name"
           />
           <input
             type="text"
+            name='last_name'
             onChange={(e) => setLastName(e.target.value)}
             className="border border-gray-400 p-2 rounded-full mb-5"
             placeholder='Last Name'
           />
           <input
             type="email"
+            name='email'
             onChange={(e) => setEmail(e.target.value)}
             className="border border-gray-400 p-2 rounded-full mb-5"
             placeholder='Email Address'
           />
           <input
             type="password"
+            name='password'
             onChange={(e) => setPassword(e.target.value)}
             className="border border-gray-400 p-2 rounded-full mb-5"
             placeholder='Password'
           />
           <input
             type="password"
+            name='password_confirmation'
             onChange={(e) => setPasswordconf(e.target.value)}
             className="border border-gray-400 p-2 rounded-full mb-5"
             placeholder='Password Confirmation'

@@ -1,20 +1,22 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {AiOutlineSearch} from 'react-icons/ai'
+import {AiOutlineSearch, AiOutlineLogout} from 'react-icons/ai'
 import { LoginModal } from '../pages/LoginModal'
 import { RegisterModal } from '../pages/RegisterModal'
 import { useEffect } from 'react'
 
 export const Navbar = () => {
+  const [search, setSearch]= useState('');
   const [logOpenModal, setLogOpenModal] = useState(false)
   const [regOpenModal, setRegOpenModal] = useState(false)
-  const handleOnClose = () => setRegOpenModal(false)
   const [token, setToken] = useState(false)
-  const [tokens, setTokens] = useState(false)
+  const navigate = useNavigate();
+
+  const handleOnClose = () => setRegOpenModal(false)
+  const loginClose = () => setLogOpenModal(false)
+
   const user = localStorage.getItem('user');
-  const users = localStorage.getItem('users');
   const userData = JSON.parse(user);
-  const getdata = JSON.parse(users);
 
   useEffect(() =>{
     if(userData){
@@ -22,18 +24,16 @@ export const Navbar = () => {
     }
   },[token])
 
-  useEffect(() =>{
-    if(getdata){
-      setTokens(true)
-    }
-  },[tokens])
-
-  const [search, setSearch]= useState('');
-  const navigate = useNavigate();
 
   const submit  = () => {
     navigate(`/Search/${search}`)
   }
+  const logout = async () => {
+    setTimeout(function () {
+      window.location.reload(1);
+    }, 1500);
+    localStorage.clear();
+  };
 
   return (
     <div className='flex items-center justify-between p-4 z-[100] w-full absolute text-white'>
@@ -52,8 +52,15 @@ export const Navbar = () => {
         {
           (token) ? 
           <div className='flex item-center mr-[10px]'>
-            <p className='text-white font-semibold text-3xl px-3 mr-6 py-2'>Welcome, {userData.first_name}</p>
-            <img className='rounded-full w-[50px] h-[50px]' src={userData.image} alt='noprofile'/>
+            <p className='text-white font-semibold text-3xl px-3 mr-6 py-2'>Welcome, {userData.first_name || userData.name}</p>
+            {userData.imageUrl || userData.image ? (
+                    <img  src={userData.imageUrl || userData.image} style={{width:'50px', height:'50px', borderRadius:'30px'}} ></img>
+                  ) : (
+                    <img
+                      src="https://th.bing.com/th/id/R.9d32bec8058bd3595a63a08a8cc12ade?rik=9cCTin36GLU%2f5w&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_87237.png&ehk=hVpH%2bC7rwlA1j2KqxGpMs1sp9l0RgM0jjRJsJsvDoPc%3d&risl=&pid=ImgRaw&r=0"
+                      style={{width:'50px', height:'50px', borderRadius:'30px'}}></img>
+                  )}
+            <button onClick={() => logout()} className='bg-red-600 hover:bg-red-400 px-8 py-2 rounded-full text-white ml-10'><AiOutlineLogout size={25} /></button>
           </div>
           :
           <div>
@@ -61,8 +68,8 @@ export const Navbar = () => {
                 <button onClick={() => setLogOpenModal(true)} className='text-white hover:bg-red-400 px-8 py-2 mr-2 bg-transparent rounded-full border-2 border-red-500'>Login</button>
                 <button onClick={() => setRegOpenModal(true)} className='bg-red-600 hover:bg-red-400 px-8 py-2 rounded-full text-white'>Register</button>
             </div>
-            <LoginModal open={logOpenModal} onClose={() => setLogOpenModal(false)} setToken={setToken} />
-            <RegisterModal visible={regOpenModal} tutup={handleOnClose} setTokens={setTokens} />
+            <LoginModal open={logOpenModal} tutup={loginClose} setToken={setToken} />
+            <RegisterModal visible={regOpenModal} tutup={handleOnClose} setToken={setToken} />
           </div>
         }
     </div>
