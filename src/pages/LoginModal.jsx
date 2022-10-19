@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {AiOutlineClose, AiOutlineMail, AiOutlineEyeInvisible} from 'react-icons/ai'
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
-// import { GoogleLogin } from 'react-google-login';
-// import { gapi } from 'gapi-script';
+
 
 export const LoginModal = ({open, tutup, token, setToken}) => {
-  const handleOnClose = (e) => {
-    if(e.target.id === 'container') 
-    tutup()
-}
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [loginMsg, setLoginMsg] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
@@ -37,25 +33,30 @@ export const LoginModal = ({open, tutup, token, setToken}) => {
           window.location.reload(1);
         }, 1500);
     }catch (error) {
+        setLoginMsg(true)
         console.log(error);
     }
   }
-  // const clientId = "924057308178-7uggqc3rcedbs3gt561kbm8v57jm41ch.apps.googleusercontent.com"
-  // useEffect(() => {
-  //   gapi.load("client:auth2",() => {
-  //     gapi.auth2.init({clientId:clientId})
-  //   })
-  // },[])
 
-  // const responseGoogle = (response) => {
-  //   // console.log(response);
-  //   localStorage.setItem('token', response.accessToken);
-  //   localStorage.setItem('user',  JSON.stringify(response.profileObj));
-  //   setTimeout(function () {
-  //     window.location.reload(1);
-  //   }, 10);
-  //   tutup()
-  // }
+  const handleOnClose = (e) => {
+    if(e.target.id === 'container') 
+    tutup()
+  }
+
+  const validateEmail = () => {
+    if (email === undefined) return true;
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const validatePassword = () => {
+    if (password === undefined) return true;
+    return String(password);
+  };
+
 
 if(!open) return null
   return (
@@ -67,9 +68,9 @@ if(!open) return null
         </div>
     <form onSubmit={handleSubmit}>
     <div className="flex flex-col">
-    
-      <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
+      <div className='flex items-center border border-gray-400 p-2 rounded-full justify-between'>
       <input required
+        value={email}
         type="email"
         onChange={(e) => setEmail(e.target.value)}
         className="w-full rounded-full outline-none p-1"
@@ -77,16 +78,34 @@ if(!open) return null
       />
       <AiOutlineMail size={20} className='mr-2' />
       </div>
+      <div className='mb-5'>
+        {!validateEmail() && (
+          <p className='text-red-600'> Please input a valid email! </p>
+        )}
+      </div>
       <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
       <input
         type="password"
-        pattern='[a-zA-Z0-9]+' 
+        rules={[{ required: true, message: 'Please input your password!' }]}
         onChange={(e) => setPassword(e.target.value)}
         className="w-full rounded-full outline-none p-1"
         placeholder='Password'
       />
       <AiOutlineEyeInvisible size={20} className='mr-2' />
       </div>
+
+      <div className='mb-5'>
+        {!validatePassword() && (
+          <p  className='text-red-600'> Please input your password! </p>
+        )}
+      </div>
+
+      <div>
+      {loginMsg &&
+            <p className='text-red-600 mb-5 text-center'>Login failed, please check your email and password are correct!</p>
+      }
+      </div>
+
     </div>
     <div className="flex items-end justify-between text-center">
           <GoogleLogin 

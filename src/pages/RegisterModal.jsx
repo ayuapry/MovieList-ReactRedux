@@ -5,15 +5,11 @@ import axios from 'axios';
 export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState('')
   const [passwordconf, setPasswordconf] = useState('');
+  const [registerMsg, setRegisterMsg] = useState(false);
 
-
-    const handleOnClose = (e) => {
-        if(e.target.id === 'container') 
-        tutup()
-    }
     const handleSubmit = async (e) => {
       e.preventDefault();
       try{
@@ -46,9 +42,24 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
             window.location.reload(1);
           }, 1500);
       }catch (error) {
+          setRegisterMsg(true)
           console.log(error);
       }
     }
+
+    const handleOnClose = (e) => {
+      if(e.target.id === 'container') 
+      tutup()
+    }
+
+    const validateEmail = () => {
+      if (email === undefined) return true;
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
   
     if(!visible) return null
   return (
@@ -63,6 +74,8 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
         <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="text"
+            value={firstName}
+            rules={[{ required: true, message: 'Please input your firstname!' }]}
             name='first_name'
             onChange={(e) => setFirstName(e.target.value)}
             className="w-full rounded-full outline-none p-1"
@@ -80,7 +93,12 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
           />
           <AiOutlineUser size={20} className='mr-2' />
         </div>
-        <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
+        <div className='ml-1 flex items-center'>
+          {!validateEmail() && (
+            <p className='text-red-600'> Please input a valid email! </p>
+          )}
+        </div>
+        <div className='flex items-center border border-gray-400 p-2 rounded-full mb-2 justify-between'>
           <input
             type="email"
             name='email'
@@ -90,6 +108,7 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
           />
           <AiOutlineMail size={20} className='mr-2' />
         </div>
+        
         <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="password"
@@ -109,6 +128,11 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
             placeholder='Password Confirmation'
           />
           <AiOutlineEyeInvisible size={20} className='mr-2' />
+        </div>
+        <div>
+        {registerMsg &&
+            <p className='text-red-600 mb-5 text-center'>Register failed, please try again.</p>
+      }
         </div>
         </div>
         <div className="flex items-end justify-end text-center">
