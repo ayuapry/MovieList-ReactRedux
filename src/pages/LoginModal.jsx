@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import {AiOutlineClose} from 'react-icons/ai'
+import {AiOutlineClose, AiOutlineMail, AiOutlineEyeInvisible} from 'react-icons/ai'
 import axios from 'axios';
-import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script';
+import { GoogleLogin } from '@react-oauth/google';
+// import { GoogleLogin } from 'react-google-login';
+// import { gapi } from 'gapi-script';
 
 export const LoginModal = ({open, tutup, token, setToken}) => {
   const handleOnClose = (e) => {
@@ -39,22 +40,22 @@ export const LoginModal = ({open, tutup, token, setToken}) => {
         console.log(error);
     }
   }
-  const clientId = "924057308178-7uggqc3rcedbs3gt561kbm8v57jm41ch.apps.googleusercontent.com"
-  useEffect(() => {
-    gapi.load("client:auth2",() => {
-      gapi.auth2.init({clientId:clientId})
-    })
-  },[])
+  // const clientId = "924057308178-7uggqc3rcedbs3gt561kbm8v57jm41ch.apps.googleusercontent.com"
+  // useEffect(() => {
+  //   gapi.load("client:auth2",() => {
+  //     gapi.auth2.init({clientId:clientId})
+  //   })
+  // },[])
 
-  const responseGoogle = (response) => {
-    // console.log(response);
-    localStorage.setItem('token', response.accessToken);
-    localStorage.setItem('user',  JSON.stringify(response.profileObj));
-    setTimeout(function () {
-      window.location.reload(1);
-    }, 10);
-    tutup()
-  }
+  // const responseGoogle = (response) => {
+  //   // console.log(response);
+  //   localStorage.setItem('token', response.accessToken);
+  //   localStorage.setItem('user',  JSON.stringify(response.profileObj));
+  //   setTimeout(function () {
+  //     window.location.reload(1);
+  //   }, 10);
+  //   tutup()
+  // }
 
 if(!open) return null
   return (
@@ -66,29 +67,44 @@ if(!open) return null
         </div>
     <form onSubmit={handleSubmit}>
     <div className="flex flex-col">
+    
+      <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
       <input required
         type="email"
         onChange={(e) => setEmail(e.target.value)}
-        className="border border-gray-400 p-2 rounded-full mb-5"
+        className="w-full rounded-full outline-none p-1"
         placeholder='Email Address'
       />
+      <AiOutlineMail size={20} className='mr-2' />
+      </div>
+      <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
       <input
         type="password"
         pattern='[a-zA-Z0-9]+' 
         onChange={(e) => setPassword(e.target.value)}
-        className="border border-gray-400 p-2 rounded-full mb-5"
+        className="w-full rounded-full outline-none p-1"
         placeholder='Password'
       />
+      <AiOutlineEyeInvisible size={20} className='mr-2' />
+      </div>
     </div>
-    <div className="flex items-end justify-end text-center">
-    <GoogleLogin
-    className='mr-3'
-    clientId={clientId}
-    buttonText="Login With Google"
-    onSuccess={responseGoogle}
-    onFailure={responseGoogle}
-    cookiePolicy={'single_host_origin'}
-    />  
+    <div className="flex items-end justify-between text-center">
+          <GoogleLogin 
+            onSuccess={credentialResponse => {
+            localStorage.setItem('token', credentialResponse.credential)
+            localStorage.setItem('user', JSON.stringify({first_name: 'google user'}))
+            const token = localStorage.getItem('token')
+            if(token){
+              setToken(true);
+            }else{
+              setToken(false);
+            }
+            tutup()
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
       <button onClick={handleSubmit} className='bg-red-600 hover:bg-red-400 px-8 py-2 rounded-full text-white'>Login</button>
     </div>
   </form>

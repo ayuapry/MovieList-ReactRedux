@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {AiOutlineClose} from 'react-icons/ai'
+import {AiOutlineClose, AiOutlineUser, AiOutlineEyeInvisible, AiOutlineMail} from 'react-icons/ai'
 import axios from 'axios';
 
 export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
@@ -60,41 +60,56 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
             </div>
         <form onSubmit={handleSubmit}>
         <div className="flex flex-col">
+        <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="text"
             name='first_name'
             onChange={(e) => setFirstName(e.target.value)}
-            className="border border-gray-400 p-2 rounded-full mb-5"
+            className="w-full rounded-full outline-none p-1"
             placeholder="First Name"
           />
+          <AiOutlineUser size={20} className='mr-2' />
+        </div>
+        <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="text"
             name='last_name'
             onChange={(e) => setLastName(e.target.value)}
-            className="border border-gray-400 p-2 rounded-full mb-5"
+            className="w-full rounded-full outline-none p-1"
             placeholder='Last Name'
           />
+          <AiOutlineUser size={20} className='mr-2' />
+        </div>
+        <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="email"
             name='email'
             onChange={(e) => setEmail(e.target.value)}
-            className="border border-gray-400 p-2 rounded-full mb-5"
+            className="w-full rounded-full outline-none p-1"
             placeholder='Email Address'
           />
+          <AiOutlineMail size={20} className='mr-2' />
+        </div>
+        <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="password"
             name='password'
             onChange={(e) => setPassword(e.target.value)}
-            className="border border-gray-400 p-2 rounded-full mb-5"
+            className="w-full rounded-full outline-none p-1"
             placeholder='Password'
           />
+          <AiOutlineEyeInvisible size={20} className='mr-2' />
+        </div>
+        <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="password"
             name='password_confirmation'
             onChange={(e) => setPasswordconf(e.target.value)}
-            className="border border-gray-400 p-2 rounded-full mb-5"
+            className="w-full rounded-full outline-none p-1"
             placeholder='Password Confirmation'
           />
+          <AiOutlineEyeInvisible size={20} className='mr-2' />
+        </div>
         </div>
         <div className="flex items-end justify-end text-center">
           <button button onClick={handleSubmit}  className='bg-red-600 hover:bg-red-400 px-8 py-2 rounded-full text-white'>Register Now</button>

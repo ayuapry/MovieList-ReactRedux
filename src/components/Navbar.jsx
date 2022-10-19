@@ -24,7 +24,6 @@ export const Navbar = () => {
     }
   },[token])
 
-
   const submit  = () => {
     navigate(`/Search/${search}`)
   }
