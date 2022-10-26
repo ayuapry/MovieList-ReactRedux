@@ -16,7 +16,6 @@ const getGenreMovies = async () => {
       console.log(error);
   }
 };
-
 useEffect(() => {
   getGenreMovies();
 }, []);

@@ -16,7 +16,6 @@ export const Home = () => {
   const {movies, loading} = useSelector((state) => state.movies);
   const dispatch = useDispatch();
   const navigate  = useNavigate();
-  
   const [genre, setGenre] = useState([]);
   const getData = async () => {
   try{

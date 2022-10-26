@@ -3,9 +3,6 @@ import axios from "axios";
 
 const initialState = {
     movies: [],
-    
-    // genresLoaded: false,
-    // genres: [],
 };
 
 export const getMovies = createAsyncThunk ("homepage/getMovies", async () => {

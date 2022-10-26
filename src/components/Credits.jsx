@@ -10,7 +10,7 @@ export const Credits = () => {
 
     useEffect(() => {
         dispatch(getCredits(id));
-    });
+    }, []);
 
   return (
     <div>
