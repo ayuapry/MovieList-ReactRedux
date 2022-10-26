@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios';
+import React, { useEffect} from 'react'
 import { Navbar } from '../components/Navbar'
 import {Footer} from '../components/Footer'
 import { useParams } from 'react-router-dom';
@@ -9,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDetails } from '../store/feature/DetailsSlice';
 
 export const Details = () => {
-    // const [movies, setMovies] = useState([]);
     const {id} = useParams();
     const {details} = useSelector((state) => state.details)
     const dispatch = useDispatch()

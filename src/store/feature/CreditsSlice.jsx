@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    credit: [],
+    credits: [],
 };
 export const getCredits = createAsyncThunk ("movies/getCredits", async (id = false) => {
     try{
@@ -27,7 +27,7 @@ export const CreditsSlice = createSlice({
       },
       [getCredits.fulfilled]: (state, { payload }) => {
         state.loading = false;
-        state.credit = payload;
+        state.credits = payload;
       },
       [getCredits.rejected]: (state) => {
         state.loading = false;

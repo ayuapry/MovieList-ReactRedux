@@ -11,7 +11,6 @@ export const getDetails = createAsyncThunk ("movies/getDetails", async (id = fal
         `https://api.themoviedb.org/3/movie/${id}?api_key=244fa9aef597e28aa246abfdef2d39f6`
         );
         return res.data
-        // console.log(res.data)
     }
     catch (error){
         console.log(error)
