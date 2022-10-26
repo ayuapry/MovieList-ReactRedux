@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Movie } from './Movie'
 import {MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
-import { getMovies } from '../store/feature/movieSlice'
+import { getMovies } from '../store/feature/PopularMovieSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 

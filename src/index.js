@@ -9,6 +9,7 @@ import {AllMovies} from './pages/AllMovies';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Provider } from 'react-redux'
 import  store  from './store/store';
+import { Genre } from './components/Genre';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
     <Route path='/details/:id' element={<Details />} />
     <Route path='/Search/:name' element={<Search />} />
     <Route path='/movies/' element={<AllMovies />} />
+    <Route path='/genres/genre/' element={<Genre />} />
   </Routes>
   </BrowserRouter>
   </Provider>

@@ -1,43 +1,39 @@
 import React, {useState, useEffect} from 'react';
-import { GenrePages } from '../pages/GenrePages';
-import { Filter } from './Filter';
+import { Hero } from './Hero';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Footer } from './Footer';
 
 export const Genre = () => {
-  const [popular, setPopular] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-  const [active, setActive] = useState(0);
-  const [genre, setGenre] = useState([]);
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = async () => {
-  //   const data = await fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=244fa9aef597e28aa246abfdef2d39f6&language=en-US')
-  //   const movies = await data.json();
-  //   setPopular(movies.results);
-  //   setFiltered(movies.results);
-  // }
-  const getData = async () => {
-    try{
-        const item = await axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=244fa9aef597e28aa246abfdef2d39f6&language=en-US")
-        console.log(item.data.genres);
-        setGenre(item.data.genres);
-    }catch (error) {
-        console.log(error);
-    }
+const navigate = useNavigate();
+const {id} = useParams(false)
+const [genreMovies, setGenreMovies] = useState([]);
+const getGenreMovies = async () => {
+  try{
+      const item = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=6b4cec3e77943cdafbcaaaead5f55c14&query=${id}`)
+      setGenreMovies(item.data.results);
+  }catch (error) {
+      console.log(error);
+  }
 };
+
 useEffect(() => {
-    getData();
+  getGenreMovies();
 }, []);
+
   return (
-    <div className="App">
-      <Filter popular={popular} setFiltered={setFiltered} active={active} setActive={setActive} />
-      <div className="popularmovies">
-        {filtered.map((movie) =>{
-          return <GenrePages key={movie.id} movie={movie} />
-        })}
-      </div>
+    <div>
+      <Hero />
+        {genreMovies && genreMovies.map((item) => (
+        <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-0 mt-20 ml-5' onClick={() => navigate(`/details/${item.id}`)}> 
+        <img className='w-full h-[350px] object-cover block rounded-md' src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`} alt={item?.title} />
+            <div className='absolute top-0 left-0 w-full h-full hover:bg-white/50 opacity-0 hover:opacity-100 text-black '>
+                <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>{item?.title}<br />{(item.vote_average).toFixed(1)}/10</p>
+            </div>
+    </div>
+
+      ))}
+      <Footer />
     </div>
   )
 }
