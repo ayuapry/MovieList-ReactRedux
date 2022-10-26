@@ -4,6 +4,8 @@ import allmovies from './feature/MovieSlice'
 import details from "./feature/DetailsSlice"
 import credits from "./feature/CreditsSlice";
 import search from './feature/SearchSlice'
+import genre from './feature/GenreSlice'
+import genreMovies from './feature/GenreDetailsSlice'
 
 export default configureStore({
   reducer: {
@@ -12,5 +14,7 @@ export default configureStore({
     details: details,
     credits: credits,
     search: search,
+    genre: genre,
+    genreMovies: genreMovies,
   },
 })

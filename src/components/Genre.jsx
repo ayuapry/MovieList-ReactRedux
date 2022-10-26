@@ -1,24 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect} from 'react';
 import { Hero } from './Hero';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Footer } from './Footer';
+import { useSelector, useDispatch } from 'react-redux';
+import { getGenreMovies } from '../store/feature/GenreDetailsSlice';
 
 export const Genre = () => {
-const navigate = useNavigate();
-const {id} = useParams(false)
-const [genreMovies, setGenreMovies] = useState([]);
-const getGenreMovies = async () => {
-  try{
-      const item = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=6b4cec3e77943cdafbcaaaead5f55c14&query=${id}`)
-      setGenreMovies(item.data.results);
-  }catch (error) {
-      console.log(error);
-  }
-};
-useEffect(() => {
-  getGenreMovies();
-}, []);
+  const navigate = useNavigate();
+  const {id} = useParams(false)
+  const {genreMovies} = useSelector((state) => state.genreMovies)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      dispatch(getGenreMovies(id))
+  }, []);
 
   return (
     <div>
@@ -29,9 +24,8 @@ useEffect(() => {
             <div className='absolute top-0 left-0 w-full h-full hover:bg-white/50 opacity-0 hover:opacity-100 text-black '>
                 <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>{item?.title}<br />{(item.vote_average).toFixed(1)}/10</p>
             </div>
-    </div>
-
-      ))}
+        </div>
+        ))}
       <Footer />
     </div>
   )

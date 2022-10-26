@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React, { useEffect } from 'react'
 import { Movie } from '../components/Movie';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { Footer } from '../components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllMovies } from '../store/feature/MovieSlice';
-
 
 export const AllMovies = () => {
   const {allmovies, loading} = useSelector((state) => state.allmovies);
@@ -19,7 +17,6 @@ export const AllMovies = () => {
   if(loading){
     return <h2>Loading</h2>
   }  
-
   return (
     <div>
         <Navbar />

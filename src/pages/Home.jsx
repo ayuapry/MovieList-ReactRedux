@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
+import React, {useEffect} from 'react'
 import { Main } from '../components/Main'
 import { Footer } from '../components/Footer'
 import {AiOutlineArrowRight} from 'react-icons/ai'
@@ -11,31 +10,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getMovies } from '../store/feature/PopularMovieSlice';
 import { Movie } from '../components/Movie'
 import { Autoplay, Pagination, Navigation } from "swiper";
+import { getGenre } from '../store/feature/GenreSlice'
 
 export const Home = () => {
   const {movies, loading} = useSelector((state) => state.movies);
+  const {genre} = useSelector((state) => state.genre);
   const dispatch = useDispatch();
   const navigate  = useNavigate();
-  const [genre, setGenre] = useState([]);
-  const getData = async () => {
-  try{
-      const item = await axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=244fa9aef597e28aa246abfdef2d39f6&language=en-US")
-      // console.log(item.data.genres);
-      setGenre(item.data.genres);
-  }catch (error) {
-      console.log(error);
-  }
-};
 
   useEffect(() => {
-    getData();
+    dispatch(getGenre())
     dispatch(getMovies())
   },[]);  
 
   if(loading){
     return <h2>Loading</h2>
   }  
-
   return (
     <div>
         <Main />
