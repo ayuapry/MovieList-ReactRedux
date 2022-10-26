@@ -15,6 +15,7 @@ export const Details = () => {
     useEffect(() => {
         dispatch(getDetails(id))
     }, []);
+    
     return (
     <div>
         <Navbar />

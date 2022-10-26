@@ -3,23 +3,23 @@ import React, { useEffect, useState } from 'react'
 import requests from '../Requests'
 import {AiOutlinePlayCircle} from 'react-icons/ai'
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
+import { useSelector, useDispatch } from 'react-redux';
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
+import { getMoviesMain } from '../store/feature/MainSlice';
 
 export const Main = () => {
-  
-const [movies, setMovies] = useState([]);
-const movie  = movies[Math.floor(Math.random() * movies.length)]
-const movie1 = movies[Math.floor(Math.random() * movies.length)]
-const movie2 = movies[Math.floor(Math.random() * movies.length)]
+const {main} = useSelector((state) => state.main)
+const dispatch = useDispatch();
 
-useEffect (() => {
-    axios.get(requests.requestUpcoming).then((response) => {
-        setMovies(response.data.results)
-    })
-}, [])
+const movie  = main[Math.floor(Math.random() * main.length)]
+const movie1 = main[Math.floor(Math.random() * main.length)]
+const movie2 = main[Math.floor(Math.random() * main.length)]
+
+useEffect(() => {
+    dispatch(getMoviesMain())
+}, []);
  
 const truncateString = (str, num) => {
     if (str?.length > num) {

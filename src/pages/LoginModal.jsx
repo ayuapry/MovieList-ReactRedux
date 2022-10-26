@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import {AiOutlineClose, AiOutlineMail, AiOutlineEyeInvisible} from 'react-icons/ai'
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
-
+import { useDispatch } from 'react-redux';
+import { getLoginAuth } from '../store/feature/AuthSlice';
 
 export const LoginModal = ({open, tutup, token, setToken}) => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loginMsg, setLoginMsg] = useState(false);
@@ -37,6 +39,17 @@ export const LoginModal = ({open, tutup, token, setToken}) => {
         console.log(error);
     }
   }
+
+  const handleSubmitAuth = (credentialResponse) => {
+    dispatch(getLoginAuth(credentialResponse))
+    const token = localStorage.getItem('token')
+    if(token){
+      setToken(true);
+    }else{
+      setToken(false);
+    }
+    tutup()
+    }
 
   const handleOnClose = (e) => {
     if(e.target.id === 'container') 
@@ -109,17 +122,7 @@ if(!open) return null
     </div>
     <div className="flex items-end justify-between text-center">
           <GoogleLogin 
-            onSuccess={credentialResponse => {
-            localStorage.setItem('token', credentialResponse.credential)
-            localStorage.setItem('user', JSON.stringify({first_name: 'google user'}))
-            const token = localStorage.getItem('token')
-            if(token){
-              setToken(true);
-            }else{
-              setToken(false);
-            }
-            tutup()
-            }}
+            onSuccess={handleSubmitAuth} 
             onError={() => {
               console.log('Login Failed');
             }}
