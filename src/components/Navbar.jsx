@@ -53,11 +53,11 @@ export const Navbar = () => {
           <div className='flex item-center mr-[10px]'>
             <p className='text-white font-semibold text-3xl px-3 mr-6 py-2'>Welcome, {userData.first_name || userData.name}</p>
             {userData.imageUrl || userData.image ? (
-                    <img  src={userData.imageUrl || userData.image} style={{width:'50px', height:'50px', borderRadius:'30px'}} ></img>
+                    <img  src={userData.imageUrl || userData.image} style={{width:'50px', height:'50px', borderRadius:'30px'}} alt='/' ></img>
                   ) : (
                     <img
                       src="https://th.bing.com/th/id/R.9d32bec8058bd3595a63a08a8cc12ade?rik=9cCTin36GLU%2f5w&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_87237.png&ehk=hVpH%2bC7rwlA1j2KqxGpMs1sp9l0RgM0jjRJsJsvDoPc%3d&risl=&pid=ImgRaw&r=0"
-                      style={{width:'50px', height:'50px', borderRadius:'30px'}}></img>
+                      style={{width:'50px', height:'50px', borderRadius:'30px'}} alt='/'></img>
                   )}
             <button onClick={() => logout()} className='bg-red-600 hover:bg-red-400 px-8 py-2 rounded-full text-white ml-10'><AiOutlineLogout size={25} /></button>
           </div>
