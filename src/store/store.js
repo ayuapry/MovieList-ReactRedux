@@ -9,6 +9,7 @@ import genreMovies from './feature/GenreDetailsSlice'
 import main from './feature/MainSlice'
 import login from './feature/LoginSlice'
 import loginauth from './feature/AuthSlice'
+import register from './feature/RegisterSlice'
 
 export default configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export default configureStore({
     main: main,
     login: login,
     loginauth: loginauth,
+    register: register,
   },
 })

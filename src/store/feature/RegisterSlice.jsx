@@ -2,39 +2,38 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    login: [],
+    register: [],
 };
 
-export const onLogin = createAsyncThunk ("movies/onLogin", async (formValues) => {
+export const onRegister = createAsyncThunk ("movies/onRegister", async (formValues) => {
     try{
         const res = await axios.post(
-        `https://notflixtv.herokuapp.com/api/v1/users/login`, formValues
+        `https://notflixtv.herokuapp.com/api/v1/users`, formValues
         );
         localStorage.setItem("user", JSON.stringify(res.data.data));
         localStorage.setItem("token", JSON.stringify(res.data.data.token));
         return res.data
-        // console.log(res)
     }
     catch (error){
         console.log(error);
     }
 })
 
-const LoginSlice = createSlice (({
-    name: "login",
+const RegisterSlice = createSlice (({
+    name: "register",
     initialState,
     reducers: {},
     extraReducers: {
-        [onLogin.pending]: (state, action) => {
+        [onRegister.pending]: (state, action) => {
             state.loading = true
         },
-        [onLogin.fulfilled]: (state, {payload}) =>{
+        [onRegister.fulfilled]: (state, {payload}) =>{
             state.loading = false;
-            state.login = payload;
+            state.register = payload;
         },
-        [onLogin.rejected]: (state, action) =>{
+        [onRegister.rejected]: (state, action) =>{
             state.loading = false;
         }
     }
 }))
-export default LoginSlice.reducer;
+export default RegisterSlice.reducer;

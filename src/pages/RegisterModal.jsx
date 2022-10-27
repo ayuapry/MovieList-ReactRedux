@@ -1,46 +1,44 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {AiOutlineClose, AiOutlineUser, AiOutlineEyeInvisible, AiOutlineMail} from 'react-icons/ai'
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { onRegister } from '../store/feature/RegisterSlice';
+
 
 export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState('')
-  const [passwordconf, setPasswordconf] = useState('');
+  const [email] = useState();
   const [registerMsg, setRegisterMsg] = useState(false);
+  const initialValues =  {
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  };
+  const [formValues, setFormValues] = useState(initialValues);
+  const dispatch = useDispatch();
+  const {register} = useSelector((state) => state.register);
+
+  const handleChange = e => {
+    const {name, value} = e.target;
+    setFormValues({ ...formValues, [name]: value});
+  }
+
+  const token = JSON.parse(localStorage.getItem('token'))
+
+  useEffect(() => {
+    if(token){
+      setToken(true)
+    }else{
+      setToken(false)
+    }
+  }, [token, setToken])
+
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      try{
-          const res = await axios.post("https://notflixtv.herokuapp.com/api/v1/users",          
-            {
-              first_name: firstName,
-              last_name: lastName,
-              email: email,
-              password: password,
-              password_confirmation: passwordconf,
-            }
-          );
-          // console.log(res.data.data)
-          localStorage.setItem("user", JSON.stringify(res.data.data));
-          
-          const user = JSON.parse(localStorage.getItem('user'))
-          if(user.token){
-            setToken(true)
-          }else{
-            setToken(false)
-          }
-          setFirstName("");
-          setLastName("");
-          setPassword("");
-          setEmail("");
-          setPasswordconf("");
+      try{   
+          dispatch(onRegister(formValues))
           tutup()
-
-          setTimeout(function () {
-            window.location.reload(1);
-          }, 1500);
       }catch (error) {
           setRegisterMsg(true)
           console.log(error);
@@ -51,7 +49,6 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
       if(e.target.id === 'container') 
       tutup()
     }
-
     const validateEmail = () => {
       if (email === undefined) return true;
       return String(email)
@@ -60,9 +57,9 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
     };
-  
     if(!visible) return null
-  return (
+
+    return (
     <div id='container' onClick={handleOnClose} className='fixed inset-0 bg-black bg-opacity-70 backdropbackdrop-blur-xl flex justify-center items-center text-black'>
         <div className="bg-white p-2 rounded w-[500px]">
             <div className='flex items-center justify-between mb-7 '>
@@ -74,10 +71,10 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
         <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
           <input
             type="text"
-            value={firstName}
+            value={formValues.firstName}
             rules={[{ required: true, message: 'Please input your firstname!' }]}
             name='first_name'
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={handleChange}
             className="w-full rounded-full outline-none p-1"
             placeholder="First Name"
           />
@@ -87,7 +84,8 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
           <input
             type="text"
             name='last_name'
-            onChange={(e) => setLastName(e.target.value)}
+            value={formValues.last_name}
+            onChange={handleChange}
             className="w-full rounded-full outline-none p-1"
             placeholder='Last Name'
           />
@@ -102,7 +100,9 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
           <input
             type="email"
             name='email'
-            onChange={(e) => setEmail(e.target.value)}
+            value={formValues.email}
+            onChange={handleChange}
+            // onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-full outline-none p-1"
             placeholder='Email Address'
           />
@@ -113,7 +113,8 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
           <input
             type="password"
             name='password'
-            onChange={(e) => setPassword(e.target.value)}
+            value={formValues.password}
+            onChange={handleChange}
             className="w-full rounded-full outline-none p-1"
             placeholder='Password'
           />
@@ -123,17 +124,18 @@ export const RegisterModal = ({visible, tutup, tokens, setToken}) => {
           <input
             type="password"
             name='password_confirmation'
-            onChange={(e) => setPasswordconf(e.target.value)}
+            value={formValues.password_confirmation}
+            onChange={handleChange}
             className="w-full rounded-full outline-none p-1"
             placeholder='Password Confirmation'
           />
           <AiOutlineEyeInvisible size={20} className='mr-2' />
         </div>
-        <div>
-        {registerMsg &&
-            <p className='text-red-600 mb-5 text-center'>Register failed, please try again.</p>
-      }
-        </div>
+          <div>
+            {registerMsg &&
+                <p className='text-red-600 mb-5 text-center'>Register failed, please try again.</p>
+            }
+          </div>
         </div>
         <div className="flex items-end justify-end text-center">
           <button button onClick={handleSubmit}  className='bg-red-600 hover:bg-red-400 px-8 py-2 rounded-full text-white'>Register Now</button>

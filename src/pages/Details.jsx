@@ -1,8 +1,8 @@
 import React, { useEffect} from 'react'
 import { Navbar } from '../components/Navbar'
-import {Footer} from '../components/Footer'
+import { Footer} from '../components/Footer'
 import { useParams } from 'react-router-dom';
-import {AiOutlinePlayCircle, AiFillStar} from 'react-icons/ai'
+import { AiOutlinePlayCircle, AiFillStar } from 'react-icons/ai'
 import { Credits } from '../components/Credits';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDetails } from '../store/feature/DetailsSlice';
@@ -15,7 +15,7 @@ export const Details = () => {
     useEffect(() => {
         dispatch(getDetails(id))
     }, []);
-    
+
     return (
     <div>
         <Navbar />

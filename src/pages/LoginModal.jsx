@@ -1,35 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {AiOutlineClose, AiOutlineMail, AiOutlineEyeInvisible} from 'react-icons/ai'
-import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getLoginAuth } from '../store/feature/AuthSlice';
+import { onLogin } from '../store/feature/LoginSlice';
 
-export const LoginModal = ({open, tutup, token, setToken}) => {
-  const dispatch = useDispatch()
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+export const LoginModal = ({open, tutup, setToken}) => {
+  const [email] = useState();
+  const [password] = useState();
   const [loginMsg, setLoginMsg] = useState(false);
+  const initialValues = {
+    email: "", 
+    password: ""
+  };
+  const [formValues, setFormValues] = useState(initialValues);
+  const dispatch = useDispatch();
+  const {login} = useSelector((state) => state.login);
+
+  const handleChange = e => {
+    const {name, value} = e.target;
+    setFormValues({ ...formValues, [name]: value});
+  }
+  const token = JSON.parse(localStorage.getItem('token'))
+  useEffect(() => {
+    if(token){
+      setToken(true)
+    }else{
+      setToken(false)
+    }
+  }, [token, setToken])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-        const res = await axios.post("https://notflixtv.herokuapp.com/api/v1/users/login",
-          {
-            email: email,
-            password: password,
-          }
-        );
-        // console.log(res.data.data)
-        localStorage.setItem("user", JSON.stringify(res.data.data));
-        localStorage.setItem("token", JSON.stringify(res.data.data.token));
-        const user = JSON.parse(localStorage.getItem('user'))
-        if(user.token){
-          setToken(true)
-        }else{
-          setToken(false)
-        }
-        setPassword("");
-        setEmail("");
+        dispatch(onLogin(formValues))
         tutup();
         setTimeout(function () {
           window.location.reload(1);
@@ -70,8 +74,7 @@ export const LoginModal = ({open, tutup, token, setToken}) => {
     return String(password);
   };
 
-
-if(!open) return null
+  if(!open) return null
   return (
     <div id='container' onClick={handleOnClose} className='fixed inset-0 bg-black bg-opacity-70 backdropbackdrop-blur-xl flex justify-center items-center text-black'>
     <div className="bg-white p-2 rounded w-[500px]">
@@ -83,9 +86,10 @@ if(!open) return null
     <div className="flex flex-col">
       <div className='flex items-center border border-gray-400 p-2 rounded-full justify-between'>
       <input required
-        value={email}
+        name='email'
+        value={formValues.email}
         type="email"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleChange}
         className="w-full rounded-full outline-none p-1"
         placeholder='Email Address'
       />
@@ -98,27 +102,26 @@ if(!open) return null
       </div>
       <div className='flex items-center border border-gray-400 p-2 rounded-full mb-5 justify-between'>
       <input
+        name='password'
+        value={formValues.password}
         type="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handleChange}
         className="w-full rounded-full outline-none p-1"
         placeholder='Password'
       />
       <AiOutlineEyeInvisible size={20} className='mr-2' />
       </div>
-
       <div className='mb-5'>
         {!validatePassword() && (
           <p  className='text-red-600'> Please input your password! </p>
         )}
       </div>
-
       <div>
       {loginMsg &&
             <p className='text-red-600 mb-5 text-center'>Login failed, please check your email and password are correct!</p>
       }
       </div>
-
     </div>
     <div className="flex items-end justify-between text-center">
           <GoogleLogin 

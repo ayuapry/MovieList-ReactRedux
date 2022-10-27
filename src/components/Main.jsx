@@ -1,6 +1,4 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import requests from '../Requests'
+import React, { useEffect } from 'react'
 import {AiOutlinePlayCircle} from 'react-icons/ai'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,7 +17,7 @@ const movie2 = main[Math.floor(Math.random() * main.length)]
 
 useEffect(() => {
     dispatch(getMoviesMain())
-}, []);
+}, [dispatch]);
  
 const truncateString = (str, num) => {
     if (str?.length > num) {
