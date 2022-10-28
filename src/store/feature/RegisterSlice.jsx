@@ -12,7 +12,7 @@ export const onRegister = createAsyncThunk ("movies/onRegister", async (formValu
         );
         localStorage.setItem("user", JSON.stringify(res.data.data));
         localStorage.setItem("token", JSON.stringify(res.data.data.token));
-        return res.data
+        // return res.data
     }
     catch (error){
         console.log(error);
